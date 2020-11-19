@@ -2,29 +2,32 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const register = (req, res, next) => {
+const register = (req, res) => {
   bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
     if (err) {
       res.json({ error: err });
     }
     const user = new User({
       name: req.body.name,
-      username: req.body.username,
+      gender: req.body.gender,
+      birthday: req.body.birthday,
+      avatar: req.body.avatar,
+      email: req.body.email,
       password: hashedPass,
     });
     user
       .save()
       .then((user) => {
-        res.json({ message: " Add new User successfully!" });
+        res.status(200).json({ message: " Add new User successfully!", user });
       })
       .catch((error) => {
-        res.json({ message: "Error!" });
+        res.status(400).json({ message: "Error!" });
       });
   });
 };
-const login = (req, res, next) => {
-  const { username, password } = req.body;
-  User.findOne({ username: username }).then((user) => {
+const login = (req, res) => {
+  const { email, password } = req.body;
+  User.findOne({ email: email }).then((user) => {
     if (user) {
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
@@ -32,15 +35,15 @@ const login = (req, res, next) => {
         }
         if (result) {
           const token = jwt.sign({ name: user.name }, process.env.JWT_KEY, {
-            expiresIn: "1h",
+            expiresIn: "365d",
           });
-          res.json({ message: "Login successfully!", token });
+          res.status(200).json({ message: "Login successfully!", user, token });
         } else {
-          res.json({ message: "Password invalid!" });
+          res.status(400).json({ message: "Password invalid!" });
         }
       });
     } else {
-      res.json({ message: "No user found !" });
+      res.status(404).json({ message: "No user found !" });
     }
   });
 };

@@ -4,12 +4,27 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
+      require: true,
     },
-    username: {
+    gender: {
+      type: Boolean,
+      require: true,
+    },
+    birthday: {
+      type: Date,
+      require: true,
+    },
+    avatar: {
       type: String,
+      require: false,
+    },
+    email: {
+      type: String,
+      require: true,
     },
     password: {
       type: String,
+      require: true,
     },
   },
   { timestamps: true }

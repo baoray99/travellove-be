@@ -51,8 +51,8 @@ const createPlace = async (req, res) => {
     res.json({ message: err });
   }
 };
-// //delete only by admin
-// router.delete("/:_id", auth, async (req, res) => {
+//delete only by admin
+// const deletePlace = async (req, res) => {
 //   if (req.user.isAdmin === true) {
 //     try {
 //       const removedplace = await Place.findByIdAndRemove(req.params._id);

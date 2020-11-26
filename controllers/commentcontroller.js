@@ -54,9 +54,44 @@ const getAllByPlace = async (req, res) => {
   }
 };
 
+const deleteComment = async(req,res) =>{
+  try{
+    const removeComment = await Comment.findByIdAndRemove({_id:req.params._id});
+    req.json(removeComment);
+  }catch(error){
+    res.json({message:error})
+  }
+}
+
+const updateComment = async(req,res)=>{
+  try {
+    const thingHotel = await Hotel.findOne({ _id: req.body.ofWhatId });
+    const thingPlace = await Place.findOne({ _id: req.body.ofWhatId });
+    const user = await User.findOne({ _id: req.body.userId });
+
+    const updateCmt = await Comment.findByIdAndUpdate({_id:req.params._id},
+      {
+        $set:{
+          userId: req.body.userId,
+          user: user,
+          ofWhatId: req.body.ofWhatId,
+          ofWhat: thingHotel ? thingHotel : thingPlace,
+          content: req.body.content,
+          images: req.body.images,
+          star: req.body.star
+        },
+      });
+      res.json(updateCmt);
+  } catch (error) {
+    res.json({message:error});
+  }
+}
+
 module.exports = {
   createComment,
   getAllByUser,
   getAllByHotel,
   getAllByPlace,
+  deleteComment,
+  updateComment
 };

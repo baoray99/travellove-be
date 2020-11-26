@@ -10,7 +10,7 @@ const placeSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    url_image: {
+    images: {
       type: Array,
       require: false,
     },

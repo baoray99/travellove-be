@@ -26,7 +26,7 @@ const Place = require("../models/place");
 //   }
 // });
 //get all hotel
-const getAll = async (req, res) => {
+const getAllHotel = async (req, res) => {
   try {
     const hotel = await Hotel.find();
     res.json(hotel);
@@ -35,7 +35,7 @@ const getAll = async (req, res) => {
   }
 };
 //get by id place
-const getByPlaceId = async (req, res) => {
+const getHotelByPlaceId = async (req, res) => {
   try {
     const hotel = await Hotel.find({ placeId: req.params.placeId });
     res.json(hotel);
@@ -44,7 +44,7 @@ const getByPlaceId = async (req, res) => {
   }
 };
 // get by id hotel
-const getByHotelId = async (req, res) => {
+const getHotelById = async (req, res) => {
   try {
     const hotel = await Hotel.findById(req.params._id);
     res.json(hotel);
@@ -73,51 +73,46 @@ const createHotel = async (req, res) => {
     res.json({ message: err });
   }
 };
-//delete only admin
-// router.delete("/:hotelId", auth, async (req, res) => {
-//   if (req.user.isAdmin === true) {
-//     try {
-//       const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
-//       res.json({ message: "Delete hotel success", removedhotel });
-//     } catch (err) {
-//       res.json({ messgae: err });
-//     }
-//   } else {
-//     res.status(400).send({ message: "Only admin is permitted" });
-//   }
-// });
+// delete only admin
+const deleteHotel = async (req, res) => {
+  try {
+    const removedhotel = await Hotel.remove({ _id: req.params._id });
+    res.json({ message: "Delete hotel success", removedhotel });
+  } catch (err) {
+    res.json({ messgae: err });
+  }
+};
 // //update by id only admin and mod
-// router.put("/:hotelId", auth, async (req, res) => {
-//   // them auth sau "/:hotelId", auth, async nhá
-//   if (req.user.isAdmin === true || req.user.isMod === true) {
-//     try {
-//       const updatedHotel = await Hotel.updateOne(
-//         { _id: req.params.hotelId },
-//         {
-//           $set: {
-//             Name: req.body.Name,
-//             PlaceID: req.body.PlaceID,
-//             Place: req.body.Place,
-//             Star: req.body.Star,
-//             Price: req.body.Price,
-//             Star_Rating: req.body.Star_Rating,
-//             Description: req.body.Description,
-//             URL_Image: req.body.URL_Image,
-//           },
-//         }
-//       );
-//       res.json({ message: "Update hotel success", updatedHotel });
-//     } catch (err) {
-//       res.json({ messgae: err });
-//     }
-//   } else {
-//     res.status(400).send({ message: "Only admin and mod is permitted" });
-//   }
-// });
+const updateHotel = async (req, res) => {
+  // them auth sau "/:hotelId", auth, async nhá
+  const place = await Place.findOne({ _id: req.body.placeId });
+  try {
+    const updatedHotel = await Hotel.updateOne(
+      { _id: req.params._id },
+      {
+        $set: {
+          name: req.body.name,
+          placeId: req.body.placeId,
+          place: place,
+          star: req.body.star,
+          srice: req.body.srice,
+          star_rating: req.body.star_rating,
+          description: req.body.description,
+          images: req.body.URL_images,
+        },
+      }
+    );
+    res.json({ message: "Update hotel success", updatedHotel });
+  } catch (err) {
+    res.json({ messgae: err });
+  }
+};
 
 module.exports = {
-  getAll,
-  getByHotelId,
-  getByPlaceId,
+  getAllHotel,
+  getHotelById,
+  getHotelByPlaceId,
   createHotel,
+  deleteHotel,
+  updateHotel,
 };

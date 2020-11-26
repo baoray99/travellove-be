@@ -44,9 +44,19 @@ const getAllByHotel = async (req, res) => {
     res.json({ message: error });
   }
 };
+// get all comment by place
+const getAllByPlace = async (req, res) => {
+  try {
+    const comment = await Comment.find({ ofWhatId: req.params.ofWhatId });
+    res.json(comment);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
 
 module.exports = {
   createComment,
   getAllByUser,
   getAllByHotel,
+  getAllByPlace,
 };

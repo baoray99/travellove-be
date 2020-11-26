@@ -24,7 +24,7 @@ const Place = require("../models/place");
 //   }
 // });
 //get all by user
-const getAll = async (req, res) => {
+const getAllPlace = async (req, res) => {
   try {
     const place = await Place.find();
     res.json(place);
@@ -33,7 +33,7 @@ const getAll = async (req, res) => {
   }
 };
 //get by id
-const getById = async (req, res) => {
+const getPlaceById = async (req, res) => {
   try {
     const place = await Place.findById(req.params._id);
     res.json(place);
@@ -43,7 +43,12 @@ const getById = async (req, res) => {
 };
 // create only by user
 const createPlace = async (req, res) => {
-  const place = new Place(req.body);
+  const place = new Place({
+    name: req.body.name,
+    country: req.body.country,
+    images: req.body.images,
+    description: req.body.description,
+  });
   try {
     const saveplace = await place.save();
     res.json(saveplace);
@@ -52,46 +57,40 @@ const createPlace = async (req, res) => {
   }
 };
 //delete only by admin
-// const deletePlace = async (req, res) => {
-//   if (req.user.isAdmin === true) {
-//     try {
-//       const removedplace = await Place.findByIdAndRemove(req.params._id);
-//       res.json(removedplace);
-//     } catch (err) {
-//       res.json({ message: err });
-//     }
-//   } else {
-//     res.status(400).send({ message: "Only admin is permitted" });
-//   }
-// });
+const deletePlace = async (req, res) => {
+  try {
+    const removedplace = await Place.findByIdAndRemove(req.params._id);
+    res.json(removedplace);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
 // //update by id by admin and mod
-// router.put("/:_id", auth, async (req, res) => {
-//   if (req.user.isAdmin === true || req.user.isMod === true) {
-//     try {
-//       const updatedPlace = await Place.updateOne(
-//         {
-//           _id: req.params._id,
-//         },
-//         {
-//           $set: {
-//             Name: req.body.Name,
-//             Country: req.body.Country,
-//             URL_Image: req.body.URL_Image,
-//             Description: req.body.Description,
-//           },
-//         }
-//       );
-//       res.json(updatedPlace);
-//     } catch (err) {
-//       res.json({ messgae: err });
-//     }
-//   } else {
-//     res.status(400).send({ message: "Only admin and mod is permitted" });
-//   }
-// });
+const updatePlace = async (req, res) => {
+  try {
+    const updatedPlace = await Place.updateOne(
+      {
+        _id: req.params._id,
+      },
+      {
+        $set: {
+          Name: req.body.Name,
+          Country: req.body.Country,
+          URL_Image: req.body.URL_Image,
+          Description: req.body.Description,
+        },
+      }
+    );
+    res.json(updatedPlace);
+  } catch (err) {
+    res.json({ messgae: err });
+  }
+};
 
 module.exports = {
-  getAll,
-  getById,
+  getAllPlace,
+  getPlaceById,
   createPlace,
+  deletePlace,
+  updatePlace,
 };

@@ -15,7 +15,7 @@ const hotelSchema = mongoose.Schema(
       require: true,
     },
     star: {
-      type: Number,
+      type: String,
       require: false,
     },
     price: {
@@ -23,7 +23,7 @@ const hotelSchema = mongoose.Schema(
       require: true,
     },
     star_rating: {
-      type: Number,
+      type: String,
       require: false,
     },
     description: {

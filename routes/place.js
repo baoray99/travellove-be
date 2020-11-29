@@ -8,5 +8,6 @@ router.get("/:_id", auth, PlaceController.getPlaceById);
 router.post("/", auth, PlaceController.createPlace);
 router.delete("/:_id", auth, PlaceController.deletePlace);
 router.put("/:_id", auth, PlaceController.updatePlace);
+router.get("/search/:nameplace", auth, PlaceController.searchPlace);
 
 module.exports = router;

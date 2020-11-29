@@ -1,5 +1,5 @@
 const Hotel = require("../models/hotel");
-const Place = require("../models/place");
+const Place = require("../models/placeDetail");
 const User = require("../models/user");
 const Comment = require("../models/comment");
 

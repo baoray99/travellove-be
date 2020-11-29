@@ -1,3 +1,4 @@
+const PlaceDetail = require("../models/placeDetail");
 const Place = require("../models/place");
 
 // //token gồm Bearer + token (sau Bearer có dấu cách) get all
@@ -35,7 +36,7 @@ const getAllPlace = async (req, res) => {
 //get by id
 const getPlaceById = async (req, res) => {
   try {
-    const place = await Place.findById(req.params._id);
+    const place = await PlaceDetail.findById(req.params._id);
     res.json(place);
   } catch (error) {
     res.json({ message: error });
@@ -45,14 +46,21 @@ const getPlaceById = async (req, res) => {
 const createPlace = async (req, res) => {
   const place = new Place({
     name: req.body.name,
+    star: req.body.star,
+    mainimg: req.body.mainimg,
+  });
+  const placeDetail = new PlaceDetail({
+    name: req.body.name,
     country: req.body.country,
+    star: req.body.star,
     mainimg: req.body.mainimg,
     images: req.body.images,
     description: req.body.description,
   });
   try {
+    const saveplacedetail = await placeDetail.save();
     const saveplace = await place.save();
-    res.json(saveplace);
+    res.json(saveplacedetail);
   } catch (err) {
     res.json({ message: err });
   }
@@ -61,7 +69,10 @@ const createPlace = async (req, res) => {
 const deletePlace = async (req, res) => {
   try {
     const removedplace = await Place.findByIdAndRemove(req.params._id);
-    res.json(removedplace);
+    const removedplacedetail = await PlaceDetail.findByIdAndRemove(
+      req.params._id
+    );
+    res.json(removedplacedetail);
   } catch (err) {
     res.json({ message: err });
   }
@@ -76,23 +87,79 @@ const updatePlace = async (req, res) => {
       {
         $set: {
           name: req.body.name,
+          star: req.body.star,
+          mainimg: req.body.mainimg,
+        },
+      }
+    );
+    const updatedPlaceDetail = await PlaceDetail.updateOne(
+      {
+        _id: req.params._id,
+      },
+      {
+        $set: {
+          name: req.body.name,
           country: req.body.country,
+          star: req.body.star,
           mainimg: req.body.mainimg,
           images: req.body.images,
           description: req.body.description,
         },
       }
     );
-    res.json(updatedPlace);
+    res.json(updatedPlaceDetail);
   } catch (err) {
     res.json({ messgae: err });
   }
 };
 
+const searchPlace = function (req, res, next) {
+  const q = req.params.nameplace;
+  // search full
+  //   try {
+  //     Place.find(
+  //       {
+  //         $text: {
+  //           $search: q,
+  //         },
+  //       },
+  //       {
+  //         _id: 0,
+  //         __v: 0,
+  //       },
+  //       function (err, place) {
+  //         res.json(place);
+  //       }
+  //     );
+  //   } catch (err) {
+  //     res.json({ message: err });
+  //   }
+
+  // search partial
+  try {
+    PlaceDetail.find(
+      {
+        name: {
+          $regex: new RegExp(q),
+        },
+      },
+      {
+        _id: 0,
+        __v: 0,
+      },
+      function (err, place) {
+        res.json(place);
+      }
+    ).limit(10);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
 module.exports = {
   getAllPlace,
   getPlaceById,
   createPlace,
   deletePlace,
   updatePlace,
+  searchPlace,
 };

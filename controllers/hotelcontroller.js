@@ -1,5 +1,5 @@
 const Hotel = require("../models/hotel");
-const Place = require("../models/place");
+const Place = require("../models/placeDetail");
 // const auth = require("../middleware/auth");
 //token gồm Bearer + token (sau Bearer có dấu cách)
 //get all

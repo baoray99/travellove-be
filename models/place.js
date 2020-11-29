@@ -6,21 +6,13 @@ const placeSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    country: {
-      type: String,
-      require: true,
-    },
     mainimg: {
       type: String,
       require: true,
     },
-    images: {
-      type: Array,
-      require: false,
-    },
-    description: {
+    star: {
       type: String,
-      require: false,
+      require: true,
     },
   },
   {

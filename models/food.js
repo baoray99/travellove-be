@@ -23,7 +23,7 @@ const foodSchema = mongoose.Schema(
       require: false,
     },
     star_rating: {
-      type: Number,
+      type: String,
       require: false,
     },
     mainimg: {

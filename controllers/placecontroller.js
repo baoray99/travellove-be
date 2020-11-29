@@ -1,4 +1,3 @@
-const PlaceDetail = require("../models/placeDetail");
 const Place = require("../models/place");
 
 // //token gồm Bearer + token (sau Bearer có dấu cách) get all
@@ -27,8 +26,8 @@ const Place = require("../models/place");
 //get all by user
 const getAllPlace = async (req, res) => {
   try {
-    const place = await Place.find();
-    res.json(place);
+    const places = await Place.find().select(" name country mainimg star "); //tim theo field
+    res.json(places);
   } catch (error) {
     res.json({ message: error });
   }
@@ -36,7 +35,7 @@ const getAllPlace = async (req, res) => {
 //get by id
 const getPlaceById = async (req, res) => {
   try {
-    const place = await PlaceDetail.findById(req.params._id);
+    const place = await Place.findById(req.params._id);
     res.json(place);
   } catch (error) {
     res.json({ message: error });
@@ -46,11 +45,6 @@ const getPlaceById = async (req, res) => {
 const createPlace = async (req, res) => {
   const place = new Place({
     name: req.body.name,
-    star: req.body.star,
-    mainimg: req.body.mainimg,
-  });
-  const placeDetail = new PlaceDetail({
-    name: req.body.name,
     country: req.body.country,
     star: req.body.star,
     mainimg: req.body.mainimg,
@@ -58,9 +52,8 @@ const createPlace = async (req, res) => {
     description: req.body.description,
   });
   try {
-    const saveplacedetail = await placeDetail.save();
     const saveplace = await place.save();
-    res.json(saveplacedetail);
+    res.json(saveplace);
   } catch (err) {
     res.json({ message: err });
   }
@@ -69,10 +62,7 @@ const createPlace = async (req, res) => {
 const deletePlace = async (req, res) => {
   try {
     const removedplace = await Place.findByIdAndRemove(req.params._id);
-    const removedplacedetail = await PlaceDetail.findByIdAndRemove(
-      req.params._id
-    );
-    res.json(removedplacedetail);
+    res.json(removedplace);
   } catch (err) {
     res.json({ message: err });
   }
@@ -81,18 +71,6 @@ const deletePlace = async (req, res) => {
 const updatePlace = async (req, res) => {
   try {
     const updatedPlace = await Place.updateOne(
-      {
-        _id: req.params._id,
-      },
-      {
-        $set: {
-          name: req.body.name,
-          star: req.body.star,
-          mainimg: req.body.mainimg,
-        },
-      }
-    );
-    const updatedPlaceDetail = await PlaceDetail.updateOne(
       {
         _id: req.params._id,
       },
@@ -137,7 +115,7 @@ const searchPlace = function (req, res, next) {
 
   // search partial
   try {
-    PlaceDetail.find(
+    Place.find(
       {
         name: {
           $regex: new RegExp(q),

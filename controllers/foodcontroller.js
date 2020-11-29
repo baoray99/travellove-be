@@ -1,5 +1,5 @@
 const Food = require("../models/food");
-const Place = require("../models/placeDetail");
+const Place = require("../models/place");
 //token gồm Bearer + token (sau Bearer có dấu cách)
 //get all by page
 // router.get("/", async (req, res, next) => {

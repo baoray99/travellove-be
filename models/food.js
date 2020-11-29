@@ -26,6 +26,10 @@ const foodSchema = mongoose.Schema(
       type: Number,
       require: false,
     },
+    mainimg: {
+      type: String,
+      require: true,
+    },
     images: {
       type: Array,
       require: false,

@@ -64,6 +64,7 @@ const createHotel = async (req, res) => {
     price: req.body.price,
     star_rating: req.body.star_rating,
     description: req.body.description,
+    mainimg: req.body.mainimg,
     images: req.body.images,
   });
   try {
@@ -98,6 +99,7 @@ const updateHotel = async (req, res) => {
           srice: req.body.srice,
           star_rating: req.body.star_rating,
           description: req.body.description,
+          mainimg: req.body.mainimg,
           images: req.body.URL_images,
         },
       }

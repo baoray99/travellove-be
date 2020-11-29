@@ -30,6 +30,10 @@ const hotelSchema = mongoose.Schema(
       type: String,
       require: false,
     },
+    mainimg: {
+      type: String,
+      require: true,
+    },
     images: {
       type: Array,
       require: false,

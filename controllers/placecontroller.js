@@ -46,6 +46,7 @@ const createPlace = async (req, res) => {
   const place = new Place({
     name: req.body.name,
     country: req.body.country,
+    mainimg: req.body.mainimg,
     images: req.body.images,
     description: req.body.description,
   });
@@ -74,10 +75,11 @@ const updatePlace = async (req, res) => {
       },
       {
         $set: {
-          Name: req.body.Name,
-          Country: req.body.Country,
-          URL_Image: req.body.URL_Image,
-          Description: req.body.Description,
+          name: req.body.name,
+          country: req.body.country,
+          mainimg: req.body.mainimg,
+          images: req.body.images,
+          description: req.body.description,
         },
       }
     );

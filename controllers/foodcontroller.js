@@ -61,6 +61,7 @@ const createFood = async (req, res) => {
     description: req.body.description,
     price: req.body.price,
     star_rating: req.body.star_rating,
+    mainimg: req.body.mainimg,
     images: req.body.images,
   });
   try {
@@ -93,6 +94,7 @@ const updateFood = async (req, res) => {
           description: req.body.description,
           price: req.body.price,
           star_rating: req.body.star_rating,
+          mainimg: req.body.mainimg,
           images: req.body.imagse,
         },
       }

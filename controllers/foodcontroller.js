@@ -27,7 +27,7 @@ const Place = require("../models/place");
 //get all food
 const getAllFood = async (req, res) => {
   try {
-    const food = await Food.find();
+    const food = await Food.find().select("name mainimg star price");
     res.json(food);
   } catch (error) {
     res.json({ message: error });

@@ -91,53 +91,59 @@ const updatePlace = async (req, res) => {
   }
 };
 
-const searchPlace = function (req, res, next) {
-  const q = req.params.nameplace;
-  // search full
-  //   try {
-  //     Place.find(
-  //       {
-  //         $text: {
-  //           $search: q,
-  //         },
-  //       },
-  //       {
-  //         _id: 0,
-  //         __v: 0,
-  //       },
-  //       function (err, place) {
-  //         res.json(place);
-  //       }
-  //     );
-  //   } catch (err) {
-  //     res.json({ message: err });
-  //   }
+// const searchPlace = (req, res) => {
+// var q = req.query.q;
+// var matchedplace = Place.filter(function (place) {
+//   return place.name.indexOf(q) !== -1;
+// });
+// res.json(matchedplace);
+// console.log(req.query);
+// search full
+//   try {
+//     Place.find(
+//       {
+//         $text: {
+//           $search: q,
+//         },
+//       },
+//       {
+//         _id: 0,
+//         __v: 0,
+//       },
+//       function (err, place) {
+//         res.json(place);
+//       }
+//     );
+//   } catch (err) {
+//     res.json({ message: err });
+//   }
 
-  // search partial
-  try {
-    Place.find(
-      {
-        name: {
-          $regex: new RegExp(q),
-        },
-      },
-      {
-        _id: 0,
-        __v: 0,
-      },
-      function (err, place) {
-        res.json(place);
-      }
-    ).limit(10);
-  } catch (err) {
-    res.json({ message: err });
-  }
-};
+// search partial
+// try {
+//   Place.find(
+//     {
+//       name: {
+//         $regex: new RegExp(q),
+//         // $search: '"q"',
+//       },
+//     },
+//     {
+//       _id: 0,
+//       __v: 0,
+//     },
+//     function (err, place) {
+//       res.json(place);
+//     }
+//   ).limit(10);
+// } catch (err) {
+//   res.json({ message: err });
+// }
+// };
 module.exports = {
   getAllPlace,
   getPlaceById,
   createPlace,
   deletePlace,
   updatePlace,
-  searchPlace,
+  // searchPlace,
 };

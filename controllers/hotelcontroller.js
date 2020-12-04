@@ -28,7 +28,7 @@ const Place = require("../models/place");
 //get all hotel
 const getAllHotel = async (req, res) => {
   try {
-    const hotel = await Hotel.find();
+    const hotel = await Hotel.find().select("name mainimg star price");
     res.json(hotel);
   } catch (error) {
     res.json({ message: error });

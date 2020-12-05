@@ -25,7 +25,9 @@ const Place = require("../models/place");
 //get all by user
 const getAllPlace = async (req, res) => {
   try {
-    const places = await Place.find().select(" name country mainimg star "); //tim theo field
+    const places = await Place.find().select(
+      " name country mainimg star description"
+    ); //tim theo field
     res.json(places);
   } catch (error) {
     res.json({ message: error });

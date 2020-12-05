@@ -14,6 +14,10 @@ const hotPlaceSchema = mongoose.Schema(
       type: Object,
       require: true,
     },
+    address: {
+      type: String,
+      require: true,
+    },
     mainimg: {
       type: String,
       require: true,

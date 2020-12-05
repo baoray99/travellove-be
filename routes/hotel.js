@@ -5,7 +5,6 @@ const auth = require("../middleware/auth");
 
 router.get("/", auth, HotelController.getAllHotel);
 router.get("/:_id", auth, HotelController.getHotelById);
-router.get("/place/:placeId", auth, HotelController.getHotelByPlaceId);
 router.post("/", auth, HotelController.createHotel);
 router.delete("/:_id", auth, HotelController.deleteHotel);
 router.put("/:_id", auth, HotelController.updateHotel);

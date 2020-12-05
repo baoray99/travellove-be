@@ -28,7 +28,7 @@ const Place = require("../models/place");
 //get all hotel
 const getAllHotPlace = async (req, res) => {
   try {
-    const hotplaces = await HotPlace.find();
+    const hotplaces = await HotPlace.find().select("name star address");
     res.json(hotplaces);
   } catch (error) {
     res.json({ message: error });
@@ -60,6 +60,7 @@ const createHotPlace = async (req, res) => {
     name: req.body.name,
     placeId: req.body.placeId,
     place: place,
+    address: req.body.address,
     star: req.body.star,
     description: req.body.description,
     mainimg: req.body.mainimg,
@@ -93,6 +94,7 @@ const updateHotPlace = async (req, res) => {
           name: req.body.name,
           placeId: req.body.placeId,
           place: place,
+          address: req.body.address,
           star: req.body.star,
           description: req.body.description,
           mainimg: req.body.mainimg,

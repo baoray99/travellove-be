@@ -27,7 +27,7 @@ const Place = require("../models/place");
 //get all food
 const getAllFood = async (req, res) => {
   try {
-    const food = await Food.find().select("name mainimg star price");
+    const food = await Food.find().select("name mainimg star price address");
     res.json(food);
   } catch (error) {
     res.json({ message: error });
@@ -58,6 +58,7 @@ const createFood = async (req, res) => {
     name: req.body.name,
     placeId: req.body.placeId,
     place: place,
+    address: req.body.address,
     description: req.body.description,
     price: req.body.price,
     star_rating: req.body.star_rating,
@@ -91,6 +92,7 @@ const updateFood = async (req, res) => {
           name: req.body.name,
           placeID: req.body.placeId,
           place: place,
+          address: req.body.address,
           description: req.body.description,
           price: req.body.price,
           star_rating: req.body.star_rating,

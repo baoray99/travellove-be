@@ -37,7 +37,9 @@ const getAllHotel = async (req, res) => {
 //get by id place
 const getHotelByPlaceId = async (req, res) => {
   try {
-    const hotel = await Hotel.find({ placeId: req.params.placeId });
+    const hotel = await Hotel.find({ placeId: req.params.placeId }).select(
+      "name mainimg star price address"
+    );
     res.json(hotel);
   } catch (err) {
     res.json({ message: err });

@@ -36,7 +36,9 @@ const getAllFood = async (req, res) => {
 //get by id
 const getFoodByPlaceId = async (req, res) => {
   try {
-    const food = await Food.find({ placeId: req.params.placeId });
+    const food = await Food.find({ placeId: req.params.placeId }).select(
+      "name mainimg star price address"
+    );
     res.json(food);
   } catch (err) {
     res.json({ message: err });

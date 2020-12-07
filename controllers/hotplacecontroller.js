@@ -67,10 +67,11 @@ const createHotPlace = async (req, res) => {
     description: req.body.description,
     mainimg: req.body.mainimg,
     images: req.body.images,
+    isLiked: false,
   });
   try {
     const savehotplace = await hotplace.save();
-    res.json({ message: "Create hotplace success", savehotplace });
+    res.json({ message: "Create hotplace success !", savehotplace });
   } catch (err) {
     res.json({ message: err });
   }
@@ -79,7 +80,7 @@ const createHotPlace = async (req, res) => {
 const deleteHotPlace = async (req, res) => {
   try {
     const removedhotplace = await HotPlace.remove({ _id: req.params._id });
-    res.json({ message: "Delete hotplace success", removedhotplace });
+    res.json({ message: "Delete hotplace success !", removedhotplace });
   } catch (err) {
     res.json({ messgae: err });
   }
@@ -101,10 +102,11 @@ const updateHotPlace = async (req, res) => {
           description: req.body.description,
           mainimg: req.body.mainimg,
           images: req.body.URL_images,
+          isLiked: req.body.isLiked,
         },
       }
     );
-    res.json({ message: "Update hotplace success", updatedHotPlace });
+    res.json({ message: "Update hotplace success !", updatedHotPlace });
   } catch (err) {
     res.json({ messgae: err });
   }

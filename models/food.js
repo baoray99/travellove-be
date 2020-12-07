@@ -26,6 +26,10 @@ const foodSchema = mongoose.Schema(
       type: Number,
       require: false,
     },
+    discount: {
+      type: Number,
+      require: false,
+    },
     star_rating: {
       type: String,
       require: false,
@@ -36,6 +40,10 @@ const foodSchema = mongoose.Schema(
     },
     images: {
       type: Array,
+      require: false,
+    },
+    isLiked: {
+      type: Boolean,
       require: false,
     },
   },

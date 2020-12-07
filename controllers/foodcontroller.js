@@ -27,7 +27,9 @@ const Place = require("../models/place");
 //get all food
 const getAllFood = async (req, res) => {
   try {
-    const food = await Food.find().select("name mainimg star price address");
+    const food = await Food.find().select(
+      "name mainimg star_rating price address isLiked"
+    );
     res.json(food);
   } catch (error) {
     res.json({ message: error });
@@ -37,7 +39,7 @@ const getAllFood = async (req, res) => {
 const getFoodByPlaceId = async (req, res) => {
   try {
     const food = await Food.find({ placeId: req.params.placeId }).select(
-      "name mainimg star_rating price address"
+      "name mainimg star_rating price address isLiked"
     );
     res.json(food);
   } catch (err) {
@@ -63,13 +65,15 @@ const createFood = async (req, res) => {
     address: req.body.address,
     description: req.body.description,
     price: req.body.price,
+    discount: req.body.discount,
     star_rating: req.body.star_rating,
     mainimg: req.body.mainimg,
     images: req.body.images,
+    isLiked: false,
   });
   try {
     const savefood = await food.save();
-    res.json(savefood);
+    res.json({ message: "Create food success !" }, savefood);
   } catch (err) {
     res.json({ message: err });
   }
@@ -78,7 +82,7 @@ const createFood = async (req, res) => {
 const deleteFood = async (req, res) => {
   try {
     const removedfood = await Food.remove({ _id: req.params._id });
-    res.json(removedfood);
+    res.json({ message: "Delete food success !" }, removedfood);
   } catch (err) {
     res.json({ messgae: err });
   }
@@ -100,10 +104,11 @@ const updateFood = async (req, res) => {
           star_rating: req.body.star_rating,
           mainimg: req.body.mainimg,
           images: req.body.imagse,
+          isLiked: req.body.isLiked,
         },
       }
     );
-    res.json(updatedFood);
+    res.json({ message: "Update food success !" }, updatedFood);
   } catch (err) {
     res.json({ messgae: err });
   }

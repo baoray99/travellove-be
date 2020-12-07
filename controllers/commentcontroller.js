@@ -30,12 +30,55 @@ const createComment = async (req, res) => {
   });
   try {
     const saveComment = await comment.save();
-    res.json(saveComment);
+    res.json({ message: "Create comment success !" }, saveComment);
   } catch (error) {
     res.json({ message: error });
   }
 };
 
+//Update comment
+const updateComment = async (req, res) => {
+  const thingHotel = await Hotel.findOne({ _id: req.body.ofWhatId });
+  const thingPlace = await Place.findOne({ _id: req.body.ofWhatId });
+  const thingHotPlace = await HotPlace.findOne({ _id: req.body.ofWhatId });
+  const thingFood = await Food.findOne({ _id: req.body.ofWhatId });
+  const user = await User.findOne({ _id: req.body.userId });
+  try {
+    const updatedComment = await Comment.updateOne(
+      { _id: req.params._id },
+      {
+        $set: {
+          userId: req.body.userId,
+          user: user,
+          ofWhatId: req.body.ofWhatId,
+          ofWhat: thingHotel
+            ? thingHotel
+            : thingPlace
+            ? thingPlace
+            : thingFood
+            ? thingFood
+            : thingHotPlace,
+          content: req.body.content,
+          images: req.body.images,
+          star: req.body.star,
+        },
+      }
+    );
+    res.json({ message: "Update comment success !" }, updatedComment);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
+
+//delete comment
+const deleteComment = async (req, res) => {
+  try {
+    const removeComment = await Comment.remove({ _id: req.params._id });
+    res.json({ message: "Delete comment success !" }, removeComment);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
 // get all comment by user
 const getAllByUser = async (req, res) => {
   try {
@@ -58,4 +101,6 @@ module.exports = {
   createComment,
   getAllByUser,
   getAllByThing,
+  updateComment,
+  deleteComment,
 };

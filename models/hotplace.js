@@ -34,6 +34,10 @@ const hotPlaceSchema = mongoose.Schema(
       type: String,
       require: false,
     },
+    isLiked: {
+      type: Boolean,
+      require: false,
+    },
   },
   {
     timestamps: true,

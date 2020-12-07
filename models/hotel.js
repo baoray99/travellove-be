@@ -22,9 +22,17 @@ const hotelSchema = mongoose.Schema(
       type: String,
       require: false,
     },
-    price: {
+    min_price: {
       type: Number,
       require: true,
+    },
+    max_price: {
+      type: Number,
+      require: true,
+    },
+    discount: {
+      type: Number,
+      require: false,
     },
     description: {
       type: String,
@@ -36,6 +44,10 @@ const hotelSchema = mongoose.Schema(
     },
     images: {
       type: Array,
+      require: false,
+    },
+    isLiked: {
+      type: Boolean,
       require: false,
     },
   },

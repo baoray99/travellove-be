@@ -28,7 +28,9 @@ const Place = require("../models/place");
 //get all hotel
 const getAllHotel = async (req, res) => {
   try {
-    const hotel = await Hotel.find().select("name mainimg star price address");
+    const hotel = await Hotel.find().select(
+      "name mainimg star min_price max_price address discount description"
+    );
     res.json(hotel);
   } catch (error) {
     res.json({ message: error });
@@ -38,7 +40,7 @@ const getAllHotel = async (req, res) => {
 const getHotelByPlaceId = async (req, res) => {
   try {
     const hotel = await Hotel.find({ placeId: req.params.placeId }).select(
-      "name mainimg star price address"
+      "name mainimg star min_price max_price address discount description"
     );
     res.json(hotel);
   } catch (err) {
@@ -64,10 +66,13 @@ const createHotel = async (req, res) => {
     place: place,
     address: req.body.address,
     star: req.body.star,
-    price: req.body.price,
+    min_price: req.body.min_price,
+    max_price: req.body.max_price,
+    discount: req.body.discount,
     description: req.body.description,
     mainimg: req.body.mainimg,
     images: req.body.images,
+    isLiked: false,
   });
   try {
     const savehotel = await hotel.save();
@@ -99,10 +104,13 @@ const updateHotel = async (req, res) => {
           place: place,
           address: req.body.address,
           star: req.body.star,
-          srice: req.body.srice,
+          min_price: req.body.min_price,
+          max_price: req.body.max_price,
+          discount: req.body.discount,
           description: req.body.description,
           mainimg: req.body.mainimg,
           images: req.body.URL_images,
+          isLiked: req.body.isLiked,
         },
       }
     );

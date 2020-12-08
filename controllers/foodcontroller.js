@@ -73,7 +73,7 @@ const createFood = async (req, res) => {
   });
   try {
     const savefood = await food.save();
-    res.json(savefood);
+    res.json({ message: "Create food success !" }, savefood);
   } catch (err) {
     res.json({ message: err });
   }

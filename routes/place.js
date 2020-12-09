@@ -27,4 +27,12 @@ router.get(
 router.get("/:placeId/hotels", auth, HotelController.getHotelByPlaceId);
 router.get("/:placeId/foods", auth, FoodController.getFoodByPlaceId);
 
+router.get(
+  "/:placeId/hotplaces/:_id",
+  auth,
+  HotPlaceController.getHotPlaceById
+);
+router.get("/:placeId/hotels/:_id", auth, HotelController.getHotelById);
+router.get("/:placeId/foods/:_id", auth, FoodController.getFoodById);
+
 module.exports = router;

@@ -28,7 +28,7 @@ const createComment = async (req, res) => {
   });
   try {
     const saveComment = await comment.save();
-    res.json({ message: "Create comment success !" }, saveComment);
+    res.json({ message: "Create comment success !", saveComment });
   } catch (error) {
     res.json({ message: error });
   }
@@ -60,7 +60,7 @@ const updateComment = async (req, res) => {
         },
       }
     );
-    res.json({ message: "Update comment success !" }, updatedComment);
+    res.json({ message: "Update comment success !", updatedComment });
   } catch (error) {
     res.json({ message: error });
   }
@@ -70,7 +70,7 @@ const updateComment = async (req, res) => {
 const deleteComment = async (req, res) => {
   try {
     const removeComment = await Comment.remove({ _id: req.params._id });
-    res.json({ message: "Delete comment success !" }, removeComment);
+    res.json({ message: "Delete comment success !", removeComment });
   } catch (error) {
     res.json({ message: error });
   }
@@ -89,7 +89,7 @@ const getAllByThing = async (req, res) => {
   try {
     const comment = await Comment.find({
       ofWhatId: req.params.ofWhatId,
-    }).select("content user userId");
+    }).select("content user.avatar userId");
     res.json(comment);
   } catch (error) {
     res.json({ message: error });

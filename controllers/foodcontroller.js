@@ -73,7 +73,7 @@ const createFood = async (req, res) => {
   });
   try {
     const savefood = await food.save();
-    res.json({ message: "Create food success !" }, savefood);
+    res.json({ message: "Create food success !", savefood });
   } catch (err) {
     res.json({ message: err });
   }
@@ -82,7 +82,7 @@ const createFood = async (req, res) => {
 const deleteFood = async (req, res) => {
   try {
     const removedfood = await Food.remove({ _id: req.params._id });
-    res.json({ message: "Delete food success !" }, removedfood);
+    res.json({ message: "Delete food success !", removedfood });
   } catch (err) {
     res.json({ messgae: err });
   }
@@ -108,7 +108,7 @@ const updateFood = async (req, res) => {
         },
       }
     );
-    res.json({ message: "Update food success !" }, updatedFood);
+    res.json({ message: "Update food success !", updatedFood });
   } catch (err) {
     res.json({ messgae: err });
   }

@@ -21,14 +21,6 @@ const commentSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  images: {
-    type: Array,
-    require: false,
-  },
-  star: {
-    type: Number,
-    require: false,
-  },
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

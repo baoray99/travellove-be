@@ -25,8 +25,6 @@ const createComment = async (req, res) => {
       ? thingFood
       : thingHotPlace,
     content: req.body.content,
-    images: req.body.images,
-    star: req.body.star,
   });
   try {
     const saveComment = await comment.save();
@@ -59,8 +57,6 @@ const updateComment = async (req, res) => {
             ? thingFood
             : thingHotPlace,
           content: req.body.content,
-          images: req.body.images,
-          star: req.body.star,
         },
       }
     );
@@ -91,7 +87,9 @@ const getAllByUser = async (req, res) => {
 // get all comment by hotel
 const getAllByThing = async (req, res) => {
   try {
-    const comment = await Comment.find({ ofWhatId: req.params.ofWhatId });
+    const comment = await Comment.find({
+      ofWhatId: req.params.ofWhatId,
+    }).select("content user userId");
     res.json(comment);
   } catch (error) {
     res.json({ message: error });

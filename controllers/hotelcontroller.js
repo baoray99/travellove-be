@@ -99,18 +99,7 @@ const updateHotel = async (req, res) => {
       { _id: req.params._id },
       {
         $set: {
-          name: req.body.name,
-          placeId: req.body.placeId,
-          place: place,
-          address: req.body.address,
-          star: req.body.star,
-          min_price: req.body.min_price,
-          max_price: req.body.max_price,
-          discount: req.body.discount,
-          description: req.body.description,
-          mainimg: req.body.mainimg,
-          images: req.body.URL_images,
-          isLiked: req.body.isLiked,
+          users: req.body.users,
         },
       }
     );
@@ -119,7 +108,17 @@ const updateHotel = async (req, res) => {
     res.json({ messgae: err });
   }
 };
-
+const getAllHotelByUser = async (req, res) => {
+  try {
+    const hotelFav = await Hotel.find({ users: req.params.userId }).select(
+      "name users"
+    );
+    // console.log(foodFav);
+    res.json(hotelFav);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
 module.exports = {
   getAllHotel,
   getHotelById,
@@ -127,4 +126,5 @@ module.exports = {
   createHotel,
   deleteHotel,
   updateHotel,
+  getAllHotelByUser,
 };

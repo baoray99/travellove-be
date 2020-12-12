@@ -46,8 +46,8 @@ const hotelSchema = mongoose.Schema(
       type: Array,
       require: false,
     },
-    isLiked: {
-      type: Boolean,
+    users: {
+      type: Array,
       require: false,
     },
   },

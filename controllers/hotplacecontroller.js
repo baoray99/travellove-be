@@ -94,15 +94,7 @@ const updateHotPlace = async (req, res) => {
       { _id: req.params._id },
       {
         $set: {
-          name: req.body.name,
-          placeId: req.body.placeId,
-          place: place,
-          address: req.body.address,
-          star: req.body.star,
-          description: req.body.description,
-          mainimg: req.body.mainimg,
-          images: req.body.URL_images,
-          isLiked: req.body.isLiked,
+          users: req.body.users,
         },
       }
     );
@@ -111,7 +103,17 @@ const updateHotPlace = async (req, res) => {
     res.json({ messgae: err });
   }
 };
-
+const getAllHotPlaceByUser = async (req, res) => {
+  try {
+    const hotplaceFav = await HotPlace.find({
+      users: req.params.userId,
+    }).select("name users");
+    // console.log(foodFav);
+    res.json(hotplaceFav);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
 module.exports = {
   getAllHotPlace,
   getHotPlaceById,
@@ -119,4 +121,5 @@ module.exports = {
   createHotPlace,
   deleteHotPlace,
   updateHotPlace,
+  getAllHotPlaceByUser,
 };

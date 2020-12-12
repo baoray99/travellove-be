@@ -34,8 +34,8 @@ const hotPlaceSchema = mongoose.Schema(
       type: String,
       require: false,
     },
-    isLiked: {
-      type: Boolean,
+    users: {
+      type: Array,
       require: false,
     },
   },

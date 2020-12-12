@@ -11,6 +11,7 @@ const hotplaceRoute = require("./routes/hotplace");
 const hotelRoute = require("./routes/hotel");
 const foodRoute = require("./routes/food");
 const commentRoute = require("./routes/comment");
+const favRoute = require("./routes/favourite");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.use("/hotplaces", hotplaceRoute);
 app.use("/hotels", hotelRoute);
 app.use("/foods", foodRoute);
 app.use("/comments", commentRoute);
+app.use("/favourite", favRoute);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

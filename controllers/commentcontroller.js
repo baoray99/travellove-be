@@ -89,7 +89,7 @@ const getAllByThing = async (req, res) => {
   try {
     const comment = await Comment.find({
       ofWhatId: req.params.ofWhatId,
-    }).select("content user.avatar userId");
+    }).select("content user.avatar user.name userId");
     res.json(comment);
   } catch (error) {
     res.json({ message: error });

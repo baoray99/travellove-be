@@ -42,10 +42,6 @@ const foodSchema = mongoose.Schema(
       type: Array,
       require: false,
     },
-    isLiked: {
-      type: Boolean,
-      require: false,
-    },
     users: {
       type: Array,
       require: false,

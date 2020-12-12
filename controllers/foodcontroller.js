@@ -28,7 +28,7 @@ const Place = require("../models/place");
 const getAllFood = async (req, res) => {
   try {
     const food = await Food.find().select(
-      "name mainimg star_rating price address isLiked"
+      "name mainimg star_rating price address "
     );
     res.json(food);
   } catch (error) {
@@ -39,7 +39,7 @@ const getAllFood = async (req, res) => {
 const getFoodByPlaceId = async (req, res) => {
   try {
     const food = await Food.find({ placeId: req.params.placeId }).select(
-      "name mainimg star_rating price address isLiked"
+      "name mainimg star_rating price address"
     );
     res.json(food);
   } catch (err) {
@@ -69,7 +69,6 @@ const createFood = async (req, res) => {
     star_rating: req.body.star_rating,
     mainimg: req.body.mainimg,
     images: req.body.images,
-    isLiked: false,
   });
   try {
     const savefood = await food.save();
@@ -96,7 +95,6 @@ const updateFood = async (req, res) => {
       {
         $set: {
           users: req.body.users,
-          isLiked: req.body.isLiked,
         },
       }
     );
@@ -107,7 +105,9 @@ const updateFood = async (req, res) => {
 };
 const getAllFoodByUser = async (req, res) => {
   try {
-    const foodFav = await Food.find({ users: req.params.userId });
+    const foodFav = await Food.find({ users: req.params.userId }).select(
+      "name users"
+    );
     // console.log(foodFav);
     res.json(foodFav);
   } catch (error) {

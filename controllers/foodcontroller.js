@@ -95,15 +95,7 @@ const updateFood = async (req, res) => {
       { _id: req.params._id },
       {
         $set: {
-          name: req.body.name,
-          placeID: req.body.placeId,
-          place: place,
-          address: req.body.address,
-          description: req.body.description,
-          price: req.body.price,
-          star_rating: req.body.star_rating,
-          mainimg: req.body.mainimg,
-          images: req.body.imagse,
+          users: req.body.users,
           isLiked: req.body.isLiked,
         },
       }
@@ -113,7 +105,15 @@ const updateFood = async (req, res) => {
     res.json({ messgae: err });
   }
 };
-
+const getAllFoodByUser = async (req, res) => {
+  try {
+    const foodFav = await Food.find({ users: req.params.userId });
+    // console.log(foodFav);
+    res.json(foodFav);
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
 module.exports = {
   getAllFood,
   getFoodById,
@@ -121,4 +121,5 @@ module.exports = {
   createFood,
   deleteFood,
   updateFood,
+  getAllFoodByUser,
 };

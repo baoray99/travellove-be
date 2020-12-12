@@ -3,6 +3,7 @@ const router = express.Router();
 const FoodController = require("../controllers/foodcontroller");
 const auth = require("../middleware/auth");
 
+router.get("/:userId", auth, FoodController.getAllFoodByUser);
 router.get("/", auth, FoodController.getAllFood);
 router.get("/:_id", auth, FoodController.getFoodById);
 router.post("/", auth, FoodController.createFood);

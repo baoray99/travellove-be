@@ -46,6 +46,10 @@ const foodSchema = mongoose.Schema(
       type: Boolean,
       require: false,
     },
+    users: {
+      type: Array,
+      require: false,
+    },
   },
   {
     timestamps: true,

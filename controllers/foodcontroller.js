@@ -88,7 +88,6 @@ const deleteFood = async (req, res) => {
 };
 //update by id
 const updateFood = async (req, res) => {
-  const place = await Place.findOne({ _id: req.body.placeId });
   try {
     const updatedFood = await Food.updateOne(
       { _id: req.params._id },

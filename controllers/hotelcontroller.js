@@ -93,7 +93,6 @@ const deleteHotel = async (req, res) => {
 // //update by id only admin and mod
 const updateHotel = async (req, res) => {
   // them auth sau "/:hotelId", auth, async nhá
-  const place = await Place.findOne({ _id: req.body.placeId });
   try {
     const updatedHotel = await Hotel.updateOne(
       { _id: req.params._id },

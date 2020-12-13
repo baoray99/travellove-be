@@ -13,11 +13,7 @@ const getFavourite = async (req, res) => {
     const hotplaceFav = await HotPlace.find({
       users: req.params.userId,
     }).select("name users placeId mainimg address");
-    const fav = {
-      hotplaces: hotplaceFav,
-      foods: foodFav,
-      hotels: hotelFav,
-    };
+    const fav = [hotplaceFav, foodFav, hotelFav];
     res.json(fav);
   } catch (error) {
     res.json({ message: error });

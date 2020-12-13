@@ -106,7 +106,7 @@ const getAllHotPlaceByUser = async (req, res) => {
   try {
     const hotplaceFav = await HotPlace.find({
       users: req.params.userId,
-    }).select("name users");
+    }).select("name users place._id mainimg address");
     // console.log(foodFav);
     res.json(hotplaceFav);
   } catch (error) {

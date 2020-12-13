@@ -105,7 +105,7 @@ const updateFood = async (req, res) => {
 const getAllFoodByUser = async (req, res) => {
   try {
     const foodFav = await Food.find({ users: req.params.userId }).select(
-      "name users place._id mainimg address"
+      "name users placeId mainimg address"
     );
     // console.log(foodFav);
     res.json(foodFav);

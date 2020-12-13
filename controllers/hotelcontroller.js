@@ -110,7 +110,7 @@ const updateHotel = async (req, res) => {
 const getAllHotelByUser = async (req, res) => {
   try {
     const hotelFav = await Hotel.find({ users: req.params.userId }).select(
-      "name users place._id mainimg address"
+      "name users placeId mainimg address"
     );
     // console.log(foodFav);
     res.json(hotelFav);
